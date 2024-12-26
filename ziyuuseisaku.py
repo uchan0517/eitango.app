@@ -6,18 +6,7 @@ import gtts
 import pandas as pd
 import time
 global sel_Q
-#リセット
-if st.button("リセット"):
-    st.session_state.count = ""
-    st.session_state.matigai = 0
-    st.session_state.seikai = 0
-#結果の表示
-if st.session_state.count == 9:
-    st.session_state.count = ""
-    df = pd.DataFrame({
-    '正解': [st.session_state.seikai],
-    '間違い':[st.session_state.matigai]})
-    st.dataframe(df)
+
     
 #初期化
 st.session_state.page = ""
@@ -36,6 +25,18 @@ if "count" not in st.session_state:
 if 'page' not in st.session_state:
     st.session_state.page = ""
 
+#リセット
+if st.button("リセット"):
+    st.session_state.count = ""
+    st.session_state.matigai = 0
+    st.session_state.seikai = 0
+#結果の表示
+if st.session_state.count == 10:
+    st.session_state.count = ""
+    df = pd.DataFrame({
+    '正解': [st.session_state.seikai],
+    '間違い':[st.session_state.matigai]})
+    st.dataframe(df)
 #ホーム画面とサイドバー処理の場所
 with st.sidebar:
     sel_Q = st.selectbox(
@@ -77,7 +78,7 @@ def QandA(English,Japanese):
     global Q
 #問題つくり
     if st.session_state.count == "":
-        st.session_state.mondai = random.sample(li,9)
+        st.session_state.mondai = random.sample(li,10)
         st.session_state.count = 0
     #st.session_state.count += 1
     print(st.session_state.mondai)
